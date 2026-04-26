@@ -7,4 +7,7 @@
 !homeworks/HW_02/HW2_microservices_Teeshchenkova_Liliia.ipynb
 !homeworks/HW_03/
 !homeworks/HW_03/HW3_iac_Tereshchenkova_Liliia.ipynb
-!homeworks/HW_05/
+!homeworks/HW_05/*
+!homeworks/HW_05/.dvc/
+!homeworks/HW_05/.dvcignore
+!homeworks/HW_05/**
