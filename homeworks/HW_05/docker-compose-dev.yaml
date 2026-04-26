@@ -21,7 +21,9 @@ services:
     labels:
       docker_compose_diagram.icon: "diagrams.onprem.client.Users"
       docker_compose_diagram.cluster: "ML Platform"
-      docker_compose_diagram.description: "Notebook / Experiments\n(DVC+MLflow+Feast usage)"
+      docker_compose_diagram.description: |
+        "Notebook / Experiments\n"
+        "(DVC+MLflow+Feast usage)"
 
   dvc_pipeline:
     image: python:3.11-slim
@@ -33,7 +35,8 @@ services:
     labels:
       docker_compose_diagram.icon: "diagrams.onprem.workflow.Airflow"
       docker_compose_diagram.cluster: "Data & Training"
-      docker_compose_diagram.description: "DVC pipeline\n(stage1 prepare, stage2 train)"
+      docker_compose_diagram.description: |
+        "DVC pipeline\n(stage1 prepare, stage2 train)"
 
   mlflow:
     image: ghcr.io/mlflow/mlflow:v2.14.1
@@ -68,7 +71,8 @@ services:
     labels:
       docker_compose_diagram.icon: "diagrams.onprem.storage.CephOsd"
       docker_compose_diagram.cluster: "Artifacts Storage"
-      docker_compose_diagram.description: "S3 artifacts\n(models, logs, datasets)"
+      docker_compose_diagram.description: |
+        "S3 artifacts\n(models, logs, datasets)"
 
   feast_ui:
     image: python:3.11-slim
@@ -97,7 +101,8 @@ services:
     labels:
       docker_compose_diagram.icon: "diagrams.onprem.compute.Server"
       docker_compose_diagram.cluster: "Inference"
-      docker_compose_diagram.description: "OpenCV face blur\nmodel/video processing"
+      docker_compose_diagram.description: |
+        "OpenCV face blur\nmodel/video processing"
 
 volumes:
   minio_data:

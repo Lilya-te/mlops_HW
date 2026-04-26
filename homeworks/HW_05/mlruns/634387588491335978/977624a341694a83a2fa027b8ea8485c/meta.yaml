@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/l.tereshchenkova/MIPT/semester-2/courses/ml-ops/homeworks/HW_05/mlruns/634387588491335978/977624a341694a83a2fa027b8ea8485c/artifacts
+end_time: 1777215479906
+entry_point_name: ''
+experiment_id: '634387588491335978'
+lifecycle_stage: active
+run_id: 977624a341694a83a2fa027b8ea8485c
+run_name: mlflow.start_run
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1777215468873
+status: 3
+tags: []
+user_id: l.tereshchenkova

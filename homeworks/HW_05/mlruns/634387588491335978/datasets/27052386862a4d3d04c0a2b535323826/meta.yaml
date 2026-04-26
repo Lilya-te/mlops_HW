@@ -1,0 +1,9 @@
+digest: 6d2ae224
+name: artifact_path
+profile: '{"num_rows": 100, "num_elements": 500}'
+schema: '{"mlflow_colspec": [{"type": "double", "name": "f0", "required": true}, {"type":
+  "double", "name": "f1", "required": true}, {"type": "double", "name": "f2", "required":
+  true}, {"type": "double", "name": "f3", "required": true}, {"type": "double", "name":
+  "target", "required": true}]}'
+source: '{"uri": "generated_in_notebook"}'
+source_type: local

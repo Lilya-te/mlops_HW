@@ -1,0 +1,29 @@
+artifact_path: file:///Users/l.tereshchenkova/MIPT/semester-2/courses/ml-ops/homeworks/HW_05/mlruns/634387588491335978/models/m-d78bac7826364fd2b71c680ca7aa1a90/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.12
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+is_signature_from_type_hint: false
+mlflow_version: 3.11.1
+model_id: m-d78bac7826364fd2b71c680ca7aa1a90
+model_size_bytes: 746822
+model_uuid: m-d78bac7826364fd2b71c680ca7aa1a90
+prompts: null
+run_id: 977624a341694a83a2fa027b8ea8485c
+signature:
+  inputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1, 4]}}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2026-04-26 14:57:49.133240'

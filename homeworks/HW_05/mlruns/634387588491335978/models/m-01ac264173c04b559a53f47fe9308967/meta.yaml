@@ -1,0 +1,10 @@
+artifact_location: file:///Users/l.tereshchenkova/MIPT/semester-2/courses/ml-ops/homeworks/HW_05/mlruns/634387588491335978/models/m-01ac264173c04b559a53f47fe9308967/artifacts
+creation_timestamp: 1777215475834
+experiment_id: '634387588491335978'
+last_updated_timestamp: 1777215479900
+model_id: m-01ac264173c04b559a53f47fe9308967
+model_type: null
+name: sklearn-model
+source_run_id: 977624a341694a83a2fa027b8ea8485c
+status: 2
+status_message: null
