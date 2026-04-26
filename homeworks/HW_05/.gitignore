@@ -1,3 +1,4 @@
 !*
 !.gitignore
 energydata_complete_v1.csv
+/energydata_complete_v1.csv
