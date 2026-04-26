@@ -1,0 +1,103 @@
+---
+version: "3.9"
+
+services:
+  notebook:
+    image: jupyter/base-notebook:python-3.11
+    container_name: hw5_notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./:/workspace
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - MLFLOW_S3_ENDPOINT_URL=http://minio:9000
+      - AWS_ACCESS_KEY_ID=mlflow
+      - AWS_SECRET_ACCESS_KEY=password
+    depends_on:
+      - mlflow
+      - minio
+      - feast_ui
+    labels:
+      docker_compose_diagram.icon: "diagrams.onprem.client.Users"
+      docker_compose_diagram.cluster: "ML Platform"
+      docker_compose_diagram.description: "Notebook / Experiments\n(DVC+MLflow+Feast usage)"
+
+  dvc_pipeline:
+    image: python:3.11-slim
+    container_name: hw5_dvc_pipeline
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    command: ["bash", "-lc", "echo DVC stages: prepare -> train"]
+    labels:
+      docker_compose_diagram.icon: "diagrams.onprem.workflow.Airflow"
+      docker_compose_diagram.cluster: "Data & Training"
+      docker_compose_diagram.description: "DVC pipeline\n(stage1 prepare, stage2 train)"
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.14.1
+    container_name: hw5_mlflow
+    ports:
+      - "5000:5000"
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri sqlite:///mlflow.db
+      --artifacts-destination s3://mlflow/
+    depends_on:
+      - minio
+    labels:
+      docker_compose_diagram.icon: "diagrams.onprem.monitoring.Grafana"
+      docker_compose_diagram.cluster: "Experiment Tracking"
+      docker_compose_diagram.description: "MLflow Tracking Server"
+
+  minio:
+    image: minio/minio:latest
+    container_name: hw5_minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=mlflow
+      - MINIO_ROOT_PASSWORD=password
+    volumes:
+      - minio_data:/data
+    labels:
+      docker_compose_diagram.icon: "diagrams.onprem.storage.CephOsd"
+      docker_compose_diagram.cluster: "Artifacts Storage"
+      docker_compose_diagram.description: "S3 artifacts\n(models, logs, datasets)"
+
+  feast_ui:
+    image: python:3.11-slim
+    container_name: hw5_feast_ui
+    ports:
+      - "8889:8889"
+    volumes:
+      - ./local_repo/feature_repo:/feature_repo
+    working_dir: /feature_repo
+    command: ["bash", "-lc", "echo Feast UI / Feature repo"]
+    labels:
+      docker_compose_diagram.icon: "diagrams.onprem.analytics.Superset"
+      docker_compose_diagram.cluster: "Feature Store"
+      docker_compose_diagram.description: "Feast\nregistry.db + online_store.db"
+
+  blur_inference:
+    image: python:3.11-slim
+    container_name: hw5_blur_inference
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    command: ["bash", "-lc", "echo OpenCV face blur inference service"]
+    depends_on:
+      - feast_ui
+      - mlflow
+    labels:
+      docker_compose_diagram.icon: "diagrams.onprem.compute.Server"
+      docker_compose_diagram.cluster: "Inference"
+      docker_compose_diagram.description: "OpenCV face blur\nmodel/video processing"
+
+volumes:
+  minio_data:
